@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>asset/hourglass.png</file>
+  </qresource>
+</RCC>
