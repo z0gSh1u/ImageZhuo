@@ -1,4 +1,4 @@
 @echo off
 cd ui
-python mainwindow.py
+python MainWindow.py
 cd ..

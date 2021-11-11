@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>asset/bitbug_favicon.ico</file>
+  </qresource>
+  <qresource prefix="banner">
+    <file>asset/banner.png</file>
+  </qresource>
+</RCC>

@@ -6,79 +6,182 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
-    <height>135</height>
+    <width>620</width>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ImageZhuo / 212138-卓旭 @ github.com/z0gSh1u/ImageZhuo</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="MainWindow.qrc">
+    <normaloff>:/icon/asset/bitbug_favicon.ico</normaloff>:/icon/asset/bitbug_favicon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn_open">
+   <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>111</width>
-      <height>31</height>
+      <y>80</y>
+      <width>601</width>
+      <height>200</height>
      </rect>
     </property>
-    <property name="text">
-     <string>打开图像</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="2">
+      <widget class="QPushButton" name="btn_scale_10">
+       <property name="text">
+        <string>保存当前图像</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="btn_scale_6">
+       <property name="text">
+        <string>Retinex</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="btn_scale_4">
+       <property name="text">
+        <string>大津阈值分割</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="btn_scale">
+       <property name="text">
+        <string>缩放</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="btn_fft">
+       <property name="text">
+        <string>FFT 幅度频谱</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btn_metadata">
+       <property name="text">
+        <string>当前图像元信息</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="btn_open">
+       <property name="text">
+        <string>打开图像</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="QPushButton" name="btn_scale_9">
+       <property name="text">
+        <string>拉普拉斯算子</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="btn_wwwl">
+       <property name="text">
+        <string>调节窗宽窗位</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="btn_scale_7">
+       <property name="text">
+        <string>均值滤波</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="btn_scale_8">
+       <property name="text">
+        <string>中值滤波</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="btn_scale_5">
+       <property name="text">
+        <string>Unsharp Masking</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="btn_scale_2">
+       <property name="text">
+        <string>翻转</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="btn_hist">
+       <property name="text">
+        <string>灰度直方图</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="btn_rotate">
+       <property name="text">
+        <string>旋转</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>ImageZhuo 功能列表</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="btn_wwwl">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>10</y>
-      <width>111</width>
-      <height>31</height>
+      <x>160</x>
+      <y>290</y>
+      <width>451</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>调节窗宽窗位</string>
+     <string>ImageZhuo / 212138-卓旭 / github.com/z0gSh1u/ImageZhuo</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QLabel" name="lbl_banner">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>180</x>
       <y>10</y>
-      <width>101</width>
-      <height>31</height>
+      <width>261</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>FFT 2D</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="MainWindow.qrc">:/banner/asset/banner.png</pixmap>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>灰度直方图</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>714</width>
-     <height>26</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="MainWindow.qrc"/>
+ </resources>
  <connections/>
 </ui>

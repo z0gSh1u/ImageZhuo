@@ -2,7 +2,7 @@
   "header": {
     "comment": "eric project file for project ImageZhuo",
     "copyright": "Copyright (C) 2021 z0gSh1u, zx.cs@qq.com",
-    "saved": "2021-11-10, 21:54:15"
+    "saved": "2021-11-11, 18:57:07"
   },
   "project": {
     "AUTHOR": "z0gSh1u",
@@ -34,7 +34,12 @@
       "README.*": "OTHERS",
       "makefile": "OTHERS"
     },
-    "FORMS": [],
+    "FORMS": [
+      "ui/ImageDisplay.ui",
+      "ui/MainWindow.ui",
+      "ui/OpenDialog.ui",
+      "ui/WWWLDialog.ui"
+    ],
     "HASH": "a78191b18183cdfd5af189916f10d9362b0d7138",
     "IDLPARAMS": {
       "DefinedNames": [],
@@ -66,9 +71,32 @@
       "CompressionThreshold": 70,
       "PathPrefix": ""
     },
-    "RESOURCES": [],
+    "RESOURCES": [
+      "ui/OpenDialog.qrc"
+    ],
     "SOURCES": [
-      "__init__.py"
+      "__init__.py",
+      "utils.py",
+      "function/fft.py",
+      "function/hist.py",
+      "function/rotate.py",
+      "function/window.py",
+      "function/zoompan.py",
+      "function/__init__.py",
+      "reader/BaoReader.py",
+      "reader/_BaseReader.py",
+      "reader/_MetaInfo.py",
+      "reader/__init__.py",
+      "ui/ImageDisplay.py",
+      "ui/MainWindow.py",
+      "ui/OpenDialog.py",
+      "ui/OpenDialog_rc.py",
+      "ui/Ui_ImageDisplay.py",
+      "ui/Ui_MainWindow.py",
+      "ui/Ui_OpenDialog.py",
+      "ui/Ui_WWWLDialog.py",
+      "ui/WWWLDialog.py",
+      "ui/__init__.py"
     ],
     "SPELLEXCLUDES": "",
     "SPELLLANGUAGE": "en_US",
@@ -82,8 +110,45 @@
       "PackagesRoot": "",
       "RcSuffix": ""
     },
-    "VCS": "None",
-    "VCSOPTIONS": {},
+    "VCS": "Git",
+    "VCSOPTIONS": {
+      "add": [
+        ""
+      ],
+      "checkout": [
+        ""
+      ],
+      "commit": [
+        ""
+      ],
+      "diff": [
+        ""
+      ],
+      "export": [
+        ""
+      ],
+      "global": [
+        ""
+      ],
+      "history": [
+        ""
+      ],
+      "log": [
+        ""
+      ],
+      "remove": [
+        ""
+      ],
+      "status": [
+        ""
+      ],
+      "tag": [
+        ""
+      ],
+      "update": [
+        ""
+      ]
+    },
     "VCSOTHERDATA": {},
     "VERSION": "0.1"
   }

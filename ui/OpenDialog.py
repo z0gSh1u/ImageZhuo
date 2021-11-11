@@ -8,38 +8,25 @@ from PyQt5.QtWidgets import QDialog, QFileDialog
 
 from Ui_OpenDialog import Ui_OpenDialog
 
+import sys
 import os.path as path
+import importlib
 
 dirname__ = path.dirname(path.abspath(__file__))
-import sys
-
 sys.path.append(path.join(dirname__, '../'))
 
 from reader import PRESET_READERS, _BaseReader
 
-import importlib
-
-from ImageDisplay import ImageDisplay
-
 
 class OpenDialog(QDialog, Ui_OpenDialog):
 
-    _SignalOpenDone = pyqtSignal(_BaseReader)
-    """
-    Class documentation goes here.
-    """
+    _SignalOpenDone = pyqtSignal(_BaseReader)  # 向父窗口回报图像打开完成
+
     def __init__(self, parent=None):
-        """
-        Constructor
-        
-        @param parent reference to the parent widget (defaults to None)
-        @type QWidget (optional)
-        """
         super(OpenDialog, self).__init__(parent)
         self.setupUi(self)
 
         self.reader: _BaseReader = None
-
         self.lbl_hourglass.setVisible(False)
 
         # 填充预设的Reader
@@ -50,9 +37,6 @@ class OpenDialog(QDialog, Ui_OpenDialog):
 
     @pyqtSlot()
     def on_btn_browse_clicked(self):
-        """
-        Slot documentation goes here.
-        """
         self.lbl_hourglass.setVisible(True)
         qFileDialog = QFileDialog(self)
         if qFileDialog.exec():
@@ -72,8 +56,4 @@ class OpenDialog(QDialog, Ui_OpenDialog):
 
     @pyqtSlot()
     def on_btn_done_clicked(self):
-        """
-        Slot documentation goes here.
-        """
-
-        self._SignalOpenDone.emit(self.reader)
+        self._SignalOpenDone.emit(self.reader)  # 将reader托管到父窗口

@@ -32,6 +32,8 @@ class ImageDisplay(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.reader = None
 
+        self.setWindowTitle(self.windowTitle() + ' (50 %)')
+
     def loadByReader(self, reader: _BaseReader):
         self.reader = reader
 
