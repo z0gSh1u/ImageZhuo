@@ -8,36 +8,25 @@ from PyQt5.QtWidgets import QDialog
 
 from Ui_ImageDisplay import Ui_Dialog
 
-from reader import _BaseReader
+from misc import MyImage
 import numpy as np
 from PIL import Image
 
 from utils import disableResize
 
-from function.window import windowData
-
 
 class ImageDisplay(QDialog, Ui_Dialog):
-    """
-    Class documentation goes here.
-    """
     def __init__(self, parent=None):
-        """
-        Constructor
-        
-        @param parent reference to the parent widget (defaults to None)
-        @type QWidget (optional)
-        """
         super(ImageDisplay, self).__init__(parent)
         self.setupUi(self)
-        self.reader = None
+        self.img = None
 
         self.setWindowTitle(self.windowTitle() + ' (50 %)')
 
-    def loadByReader(self, reader: _BaseReader):
-        self.reader = reader
+    def loadByMyImage(self, img: MyImage):
+        self.img = img
 
-        data256 = reader.data
+        data256 = img.data
         min_ = np.min(data256)
         max_ = np.max(data256)
         data256 = (data256 - min_) / (max_ - min_) * 255

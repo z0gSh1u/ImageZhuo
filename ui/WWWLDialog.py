@@ -15,20 +15,16 @@ class WWWLDialog(QDialog, Ui_Dialog):
     Class documentation goes here.
     """
     def __init__(self, parent=None):
-        """
-        Constructor
-        
-        @param parent reference to the parent widget (defaults to None)
-        @type QWidget (optional)
-        """
         super(WWWLDialog, self).__init__(parent)
         self.setupUi(self)
 
+    def updateWWWLValue(self, ww, wl):
+        self.spin_ww.setValue(ww)
+        self.spin_wl.setValue(wl)
+        
+
     @pyqtSlot()
     def on_btn_apply_clicked(self):
-        """
-        Slot documentation goes here.
-        """
         ww = self.spin_ww.value()
         wl = self.spin_wl.value()
         self._SignalWWWLDone.emit(ww, wl)

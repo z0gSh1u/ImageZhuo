@@ -10,3 +10,5 @@ class _BaseReader():
         self.h: int = None
         self.w: int = None
         self.data: np.ndarray = None
+        self.path: str = None
+        self.filename: str = None

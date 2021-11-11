@@ -1,6 +1,29 @@
+# FFT 2D
+# ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
+
 # https://www.cnblogs.com/zxuuu/p/12425321.html
 
+import numpy as np
 import math
+
+PI = math.pi
+
+
+def fft2d(data: np.ndarray):
+    # 分离为两个方向的一维FFT，O(n^2logn)
+    data = list(np.array(data))
+    # 行方向
+    for rowIndex in len(data):
+        row = convert_to_complex(data[rowIndex])
+        rowFT = fft_dit2(row)
+        data[rowIndex] = rowFT
+    data = list(np.array(data).T)
+    # 列方向
+    for colIndex in len(data):
+        col = convert_to_complex(data[colIndex])
+        colFT = fft_dit2(col)
+        data[colIndex] = convert_to_amplitude(colFT)
+    return data
 
 
 class Complex:
@@ -36,9 +59,6 @@ class Complex:
     def __str__(self):
         return (str(round(self._re, 3)) + ' + j' + str(round(self._im, 3))) if (self._im >= 0) \
           else (str(round(self._re, 3)) + ' - j' + str(round(-self._im, 3)))
-
-
-PI = math.pi
 
 
 def fft_dit2(seq: list):
@@ -106,7 +126,7 @@ def convert_to_amplitude(seq: list):
     return list(map(lambda x: math.sqrt(x.get('re')**2 + x.get('im')**2), seq))
 
 
-def add_zero_to_length(seq: list, n: int):
+def pad_zero_to_length(seq: list, n: int):
     '''
     实用函数，给实序列补0到指定长度，可用于采样点数小于FFT点数
     '''
@@ -114,7 +134,7 @@ def add_zero_to_length(seq: list, n: int):
         return seq
     # 如果点数不足，把seq补到n点
     if len(seq) > n:
-        raise ValueError('[add_zero_to_length] n < len(seq).')
+        raise ValueError('[pad_zero_to_length] n < len(seq).')
     if len(seq) < n:
         res = [*seq]
         while (len(res) < n):

@@ -1,3 +1,6 @@
+# Zoom
+# ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
+
 # 《数字图像处理基础》课程实验 1 - 图像的旋转和缩放
 # 212138-卓旭
 
