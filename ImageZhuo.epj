@@ -2,7 +2,7 @@
   "header": {
     "comment": "eric project file for project ImageZhuo",
     "copyright": "Copyright (C) 2021 z0gSh1u, zx.cs@qq.com",
-    "saved": "2021-11-11, 18:57:07"
+    "saved": "2021-11-11, 20:56:22"
   },
   "project": {
     "AUTHOR": "z0gSh1u",
@@ -38,7 +38,8 @@
       "ui/ImageDisplay.ui",
       "ui/MainWindow.ui",
       "ui/OpenDialog.ui",
-      "ui/WWWLDialog.ui"
+      "ui/WWWLDialog.ui",
+      "ui/HistogramDisplay.ui"
     ],
     "HASH": "a78191b18183cdfd5af189916f10d9362b0d7138",
     "IDLPARAMS": {
@@ -72,7 +73,8 @@
       "PathPrefix": ""
     },
     "RESOURCES": [
-      "ui/OpenDialog.qrc"
+      "ui/OpenDialog.qrc",
+      "ui/MainWindow.qrc"
     ],
     "SOURCES": [
       "__init__.py",
@@ -81,7 +83,6 @@
       "function/hist.py",
       "function/rotate.py",
       "function/window.py",
-      "function/zoompan.py",
       "function/__init__.py",
       "reader/BaoReader.py",
       "reader/_BaseReader.py",
@@ -96,7 +97,19 @@
       "ui/Ui_OpenDialog.py",
       "ui/Ui_WWWLDialog.py",
       "ui/WWWLDialog.py",
-      "ui/__init__.py"
+      "ui/__init__.py",
+      "function/flip.py",
+      "function/metadata.py",
+      "function/otsuSegmentation.py",
+      "function/retinex.py",
+      "function/sharpen.py",
+      "function/smooth.py",
+      "function/unsharpMasking.py",
+      "function/writer.py",
+      "function/zoom.py",
+      "ui/HistogramDisplay.py",
+      "ui/MainWindow_rc.py",
+      "ui/Ui_HistogramDisplay.py"
     ],
     "SPELLEXCLUDES": "",
     "SPELLLANGUAGE": "en_US",
