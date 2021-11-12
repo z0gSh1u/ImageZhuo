@@ -3,7 +3,8 @@
 Module implementing ImageDisplay.
 """
 
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import QPoint, QRect, pyqtSlot
+from PyQt5.QtGui import QColor, QPainter, QPen
 from PyQt5.QtWidgets import QDialog
 
 from Ui_ImageDisplay import Ui_Dialog

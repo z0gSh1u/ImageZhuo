@@ -16,7 +16,7 @@ class Ui_Dialog(object):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 300)
         Dialog.setSizeGripEnabled(True)
-        self.lbl_display = QtWidgets.QLabel(Dialog)
+        self.lbl_display = ImageDisplayWidget(Dialog)
         self.lbl_display.setGeometry(QtCore.QRect(2, 2, 160, 15))
         self.lbl_display.setObjectName("lbl_display")
 
@@ -27,6 +27,7 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "图像显示 / ImageZhuo"))
         self.lbl_display.setText(_translate("Dialog", "[IMAGE DISPLAY AREA]"))
+from ImageDisplayWidget import ImageDisplayWidget
 
 
 if __name__ == "__main__":

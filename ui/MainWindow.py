@@ -4,8 +4,9 @@ Module implementing MainWindow.
 """
 
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QInputDialog, QMainWindow, QMessageBox
 from PyQt5 import QtWidgets
+from matplotlib.pyplot import step
 
 from Ui_MainWindow import Ui_MainWindow
 from OpenDialog import OpenDialog
@@ -76,8 +77,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_save_clicked(self):
-        # TODO: not implemented yet
-        raise NotImplementedError
+        pass
 
     @pyqtSlot()
     def on_btn_retinex_clicked(self):
@@ -86,8 +86,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_otsu_clicked(self):
-        # TODO: not implemented yet
-        raise NotImplementedError
+        ensureCurrentOpen()
+        from function.otsuSegmentation import OtsuSegmentation
+        segmentationMask = OtsuSegmentation(currentImage.data, currentImage.h, currentImage.w)
+        currentImage.data = segmentationMask
+        currentImage.dtype = str(segmentationMask.dtype)
+        imageDisplay.loadByMyImage(currentImage)
 
     @pyqtSlot()
     def on_btn_zoom_clicked(self):
@@ -96,8 +100,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_mid_clicked(self):
+        ksize = QInputDialog.getInt(self, '参数询问', '请输入中值滤波核大小', 3, min=3, step=2)[0]
         dstData = midFilter(currentImage.data, currentImage.h, currentImage.w,
-                            5)
+                            ksize)
         currentImage.data = dstData
         imageDisplay.loadByMyImage(currentImage)
 

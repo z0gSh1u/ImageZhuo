@@ -8,6 +8,19 @@ import math
 
 PI = math.pi
 
+def nextPow2(x: int):
+    assert x > 0
+    if x == 1: return 2
+    y = 2
+    while y < x:
+        y = y ** 2
+    return y
+
+def padZero2d(data: np.ndarray, newH, newW):
+    dh = newH - data.shape[0]
+    dw = newW - data.shape[1]
+    
+    
 
 def fft2d(data: np.ndarray):
     # 分离为两个方向的一维FFT，O(n^2logn)

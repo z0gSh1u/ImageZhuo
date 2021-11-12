@@ -16,7 +16,7 @@
   <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
-  <widget class="QLabel" name="lbl_display">
+  <widget class="ImageDisplayWidget" name="lbl_display">
    <property name="geometry">
     <rect>
      <x>2</x>
@@ -30,6 +30,13 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImageDisplayWidget</class>
+   <extends>QLabel</extends>
+   <header location="global">ImageDisplayWidget</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
