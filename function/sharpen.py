@@ -3,5 +3,6 @@
 
 import numpy as np
 
-def laplacian():
+def laplacian(img: np.ndarray, ksize: int):
+    
     pass

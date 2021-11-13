@@ -9,31 +9,39 @@ import math
 
 PI = math.pi
 
+
 def nextPow2(x: int):
     assert x > 0
     if x == 1: return 2
     y = 2
     while y < x:
-        y = y ** 2
+        y = y**2
     return y
+
 
 def padZero2d(data: np.ndarray, newH, newW):
     dh = newH - data.shape[0]
     dw = newW - data.shape[1]
-    
-    
+    padded = np.pad(data, ((0, dh), (0, dw)), 'constant', constant_values=0)
+    return padded
+
+
+# TODO
+def fftshift(data: np.ndarray):
+    pass
+
 
 def fft2d(data: np.ndarray):
     # 分离为两个方向的一维FFT，O(n^2logn)
     data = list(np.array(data))
     # 行方向
-    for rowIndex in len(data):
+    for rowIndex in range(len(data)):
         row = convert_to_complex(data[rowIndex])
         rowFT = fft_dit2(row)
         data[rowIndex] = rowFT
     data = list(np.array(data).T)
     # 列方向
-    for colIndex in len(data):
+    for colIndex in range(len(data[0])):
         col = convert_to_complex(data[colIndex])
         colFT = fft_dit2(col)
         data[colIndex] = convert_to_amplitude(colFT)
@@ -138,19 +146,3 @@ def convert_to_amplitude(seq: list):
     实用函数，获取Complex的幅度值
     '''
     return list(map(lambda x: math.sqrt(x.get('re')**2 + x.get('im')**2), seq))
-
-
-def pad_zero_to_length(seq: list, n: int):
-    '''
-    实用函数，给实序列补0到指定长度，可用于采样点数小于FFT点数
-    '''
-    if len(seq) == n:
-        return seq
-    # 如果点数不足，把seq补到n点
-    if len(seq) > n:
-        raise ValueError('[pad_zero_to_length] n < len(seq).')
-    if len(seq) < n:
-        res = [*seq]
-        while (len(res) < n):
-            res.append(0)
-    return res

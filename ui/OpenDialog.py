@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Module implementing OpenDialog.
+# ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 """
 
 from PyQt5.QtCore import pyqtSlot, pyqtSignal

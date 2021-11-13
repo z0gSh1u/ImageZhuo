@@ -6,7 +6,7 @@
 import numpy as np
 
 
-# 大津阈值分割，返回二值图
+# 大津阈值分割，返回二值图和分割阈值
 # ! 为保证运算速度，只在256级灰度做阈值测试
 def OtsuSegmentation(data8bit: np.ndarray, h, w):
     # min_ = np.min(data); max_ = np.max(data)
@@ -43,4 +43,4 @@ def OtsuSegmentation(data8bit: np.ndarray, h, w):
         for j in range(w):
             res[i, j] = 255 if data8bit[i, j] > threshold else 0
 
-    return res
+    return res, threshold

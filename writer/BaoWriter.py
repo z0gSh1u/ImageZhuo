@@ -15,13 +15,12 @@ class BaoWriter(_BaseWriter):
         self.img = img
 
     def save(self, path):
-        dstBytes = b''
+        f = open(path, 'wb')
         # 宽高
-        dstBytes += intToBytes(self.img.w, 4, 'little')
-        dstBytes += intToBytes(self.img.h, 4, 'little')
+        f.write(intToBytes(self.img.w, 4, 'little'))
+        f.write(intToBytes(self.img.h, 4, 'little'))
         # 图像数据
-        for pixel in self.img.data.ravel():
-            dstBytes += intToBytes(pixel, 2, 'little')
-        assert len(dstBytes) == 4 + 4 + 2 * int(self.img.h * self.img.w)
-        with open(path, 'wb') as f:
-            f.write(dstBytes)
+        for r in range(self.img.h):
+            for c in range(self.img.w):
+                f.write(intToBytes(self.img.data[r, c], 2, 'little'))
+        f.close()

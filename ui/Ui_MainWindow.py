@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\ImageZhuo\ui\MainWindow.ui'
+# Form implementation generated from reading ui file 'F:\ImageZhuo\ui/MainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -90,6 +90,14 @@ class Ui_MainWindow(object):
         self.btn_reset = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.btn_reset.setObjectName("btn_reset")
         self.gridLayout.addWidget(self.btn_reset, 0, 2, 1, 1)
+        self.btn_reverse = QtWidgets.QPushButton(self.gridLayoutWidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_reverse.sizePolicy().hasHeightForWidth())
+        self.btn_reverse.setSizePolicy(sizePolicy)
+        self.btn_reverse.setObjectName("btn_reverse")
+        self.gridLayout.addWidget(self.btn_reverse, 0, 1, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(170, 320, 451, 16))
         self.label_2.setObjectName("label_2")
@@ -115,7 +123,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ImageZhuo / 212138-卓旭 @ github.com/z0gSh1u/ImageZhuo"))
         self.btn_save.setText(_translate("MainWindow", "保存当前图像"))
-        self.btn_retinex.setText(_translate("MainWindow", "Retinex"))
+        self.btn_retinex.setText(_translate("MainWindow", "Retinex 同态滤波"))
         self.btn_otsu.setText(_translate("MainWindow", "大津阈值分割"))
         self.btn_zoom.setText(_translate("MainWindow", "放大 [未激活]"))
         self.btn_fft.setText(_translate("MainWindow", "FFT 幅度频谱"))
@@ -126,11 +134,12 @@ class Ui_MainWindow(object):
         self.btn_mean.setText(_translate("MainWindow", "均值滤波"))
         self.btn_mid.setText(_translate("MainWindow", "中值滤波"))
         self.btn_unsharpmasking.setText(_translate("MainWindow", "Unsharp Masking"))
-        self.btn_flip.setText(_translate("MainWindow", "翻转"))
+        self.btn_flip.setText(_translate("MainWindow", "水平镜像"))
         self.btn_hist.setText(_translate("MainWindow", "灰度直方图"))
         self.btn_rotate.setText(_translate("MainWindow", "旋转"))
         self.label.setText(_translate("MainWindow", "ImageZhuo 功能列表"))
         self.btn_reset.setText(_translate("MainWindow", "重置为原图"))
+        self.btn_reverse.setText(_translate("MainWindow", "反相"))
         self.label_2.setText(_translate("MainWindow", "ImageZhuo / 212138-卓旭 / github.com/z0gSh1u/ImageZhuo"))
 import MainWindow_rc
 

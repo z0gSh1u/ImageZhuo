@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\ImageZhuo\ui\WWWLDialog.ui'
+# Form implementation generated from reading ui file 'F:\ImageZhuo\ui/WWWLDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,10 +14,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(369, 193)
+        Dialog.resize(242, 193)
         Dialog.setSizeGripEnabled(True)
         self.gridLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 341, 171))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 221, 171))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)

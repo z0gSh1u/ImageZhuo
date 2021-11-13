@@ -44,7 +44,7 @@
      <item row="4" column="2">
       <widget class="QPushButton" name="btn_retinex">
        <property name="text">
-        <string>Retinex</string>
+        <string>Retinex 同态滤波</string>
        </property>
       </widget>
      </item>
@@ -121,7 +121,7 @@
      <item row="3" column="2">
       <widget class="QPushButton" name="btn_flip">
        <property name="text">
-        <string>翻转</string>
+        <string>水平镜像</string>
        </property>
       </widget>
      </item>
@@ -160,6 +160,19 @@
       <widget class="QPushButton" name="btn_reset">
        <property name="text">
         <string>重置为原图</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btn_reverse">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>反相</string>
        </property>
       </widget>
      </item>

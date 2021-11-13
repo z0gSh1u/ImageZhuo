@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Module implementing WWWLDialog.
+# ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 """
 
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
@@ -21,7 +21,6 @@ class WWWLDialog(QDialog, Ui_Dialog):
     def updateWWWLValue(self, ww, wl):
         self.spin_ww.setValue(ww)
         self.spin_wl.setValue(wl)
-        
 
     @pyqtSlot()
     def on_btn_apply_clicked(self):

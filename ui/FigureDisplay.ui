@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>HistogramDisplay</class>
- <widget class="QDialog" name="HistogramDisplay">
+ <class>FigureDisplay</class>
+ <widget class="QDialog" name="FigureDisplay">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>灰度直方图显示 / ImageZhuo</string>
+   <string>图表显示 / ImageZhuo</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>

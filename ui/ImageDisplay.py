@@ -1,60 +1,59 @@
 # -*- coding: utf-8 -*-
 """
-Module implementing ImageDisplay.
+# ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 """
 
-from PyQt5.QtCore import QPoint, QRect, pyqtSlot, pyqtSignal
-from PyQt5.QtGui import QColor, QPainter, QPen
+from PIL import Image
+from PyQt5.QtCore import QPoint, pyqtSignal
 from PyQt5.QtWidgets import QDialog
 
 from Ui_ImageDisplay import Ui_Dialog
 
 from misc import MyImage
-import numpy as np
 from PIL import Image
 
 from utils import disableResize
 
 
 class ImageDisplay(QDialog, Ui_Dialog):
-
+    # 向上回报放大参数
     _SignalZoomParams = pyqtSignal(QPoint, QPoint)
 
     def __init__(self, parent=None):
         super(ImageDisplay, self).__init__(parent)
         self.setupUi(self)
-        self.img = None
-
-        self.setWindowTitle(self.windowTitle() + ' (50 %)')
-
+        self.by50Percent = False  # 是否按长宽50%显示（避免过大图片显示不全）
         self.lbl_display._SignalZoomDragDone.connect(
             self.handle_ImageDisplayWidget_ZoomDragDone)
 
+    def toggleBy50Percent(self, to: bool = True):
+        self.by50Percent = to
+
+    # 获取图片放大参数（通过拖拽）
     def handle_ImageDisplayWidget_ZoomDragDone(self, p0, p1):
         self._SignalZoomParams.emit(p0, p1)
 
+    # 调节是否允许拖动画框
     def toggleDrag(self, to: bool):
         self.lbl_display.enableDrag = to
 
-    def loadByMyImage(self, img: MyImage):
-        self.img = img
-        self.lbl_display.aspect = self.img.h / self.img.w
+    # 从MyImage类型更新显示
+    def loadFromMyImage(self, img: MyImage):
+        self.lbl_display.aspect = img.h / img.w
+        self.loadFromPIL8bit(img.PILImg8bit)
 
-        img256 = img.PILImg8bit
-
-        # wh
-        tsize = list(map(lambda x: x // 2, img256.size))
-        twsize = list(map(lambda x: x + 4, tsize))
-        img256 = img256.resize(tuple(tsize), Image.BICUBIC)
-
-        self.resize(*twsize)
-        self.lbl_display.resize(*tsize)
-        self.lbl_display.setPixmap(img256.toqpixmap())
-
-    def refresh(self, data8bit):
-        image256 = Image.fromarray(data8bit)
-        tsize = list(map(lambda x: x // 2, image256.size))
-        twsize = list(map(lambda x: x + 4, tsize))
-        image256 = image256.resize(tuple(tsize), Image.BICUBIC)
-        self.resize(*twsize)
-        self.lbl_display.setPixmap(image256.toqpixmap())
+    # 从PIL Image更新显示
+    def loadFromPIL8bit(self, pil8bit: Image.Image):
+        if self.by50Percent:
+            targetDisplaySize = tuple(map(lambda x: x // 2, pil8bit.size))
+            pil8bit = pil8bit.resize(targetDisplaySize, Image.BICUBIC)
+        else:
+            targetDisplaySize = pil8bit.size
+        self.setWindowTitle('图像显示 / ImageZhuo ' +
+                            ('(50%)' if self.by50Percent else '(100%)'))
+        targetWindowSize = tuple(
+            map(lambda x: x + 4,
+                pil8bit.size))  # 图像显示Label放在(2, 2)处，四周padding为2个像素
+        self.resize(*targetWindowSize)
+        self.lbl_display.resize(*targetDisplaySize)
+        self.lbl_display.setPixmap(pil8bit.toqpixmap())

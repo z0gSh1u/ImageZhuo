@@ -6,7 +6,7 @@
 
 import numpy as np
 import math
-from zoom import bilinearInterp
+from .zoom import bilinearInterp
 
 
 def rotate(img: np.ndarray, deg):

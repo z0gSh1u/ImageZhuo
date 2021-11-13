@@ -28,10 +28,12 @@ class MyImage():
 
         self.data8bit: np.ndarray = None  # 加窗后的256级灰度图
         self.PILImg8bit: Image.Image = None  # PIL.Image格式的加窗后灰度图
-        self.reWindow()
+        self.reGen8bit()
 
-    # 重新按当前WW/WL计算256级灰度图
-    def reWindow(self):
-        self.data8bit = np.array(windowData(self.data, self.ww, self.wl),
-                                 dtype=np.uint8)
+    # 重新生成256级灰度
+    def reGen8bit(self):
+        data = windowData(
+            self.data, self.ww,
+            self.wl) if self.data.dtype == np.uint16 else self.data
+        self.data8bit = np.array(data, dtype=np.uint8)
         self.PILImg8bit = Image.fromarray(self.data8bit)
