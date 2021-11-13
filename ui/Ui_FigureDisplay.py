@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\ImageZhuo\ui/FigureDisplay.ui'
+# Form implementation generated from reading ui file 'F:\ImageZhuo\ui\FigureDisplay.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -17,7 +17,7 @@ class Ui_FigureDisplay(object):
         FigureDisplay.resize(432, 324)
         FigureDisplay.setSizeGripEnabled(True)
         self.lbl_display = QtWidgets.QLabel(FigureDisplay)
-        self.lbl_display.setGeometry(QtCore.QRect(8, 8, 72, 15))
+        self.lbl_display.setGeometry(QtCore.QRect(4, 4, 72, 15))
         self.lbl_display.setObjectName("lbl_display")
 
         self.retranslateUi(FigureDisplay)

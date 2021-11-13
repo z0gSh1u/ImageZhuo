@@ -20,9 +20,10 @@ from OpenDialog import OpenDialog
 from WWWLDialog import WWWLDialog
 from ImageDisplay import ImageDisplay
 from FigureDisplay import FigureDisplay
-from function.window import windowData
+from function.sharpen import laplacian
 
 from reader import _BaseReader
+from ui.WaitDialog import WaitDialog
 from writer import PRESET_WRITERS
 
 from function.hist import drawHistogram
@@ -49,17 +50,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
-
         self.inZoomMode = False
-        self.buzy = None
-        self.toggleBusy(False)
 
     def toggleBusy(self, to=None):
-        if to is None:
-            self.buzy = not self.buzy
-        else:
-            self.buzy = to
-        self.lbl_busy.setVisible(self.buzy)
+        waitDialog.setVisible(to)
 
     @pyqtSlot()
     def on_btn_open_clicked(self):
@@ -79,7 +73,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ensureCurrentOpen()
         self.toggleBusy(True)
         figureDisplay.updateFigure(drawHistogram(currentImage.data))
-        disableResize(figureDisplay)
         figureDisplay.show()
         self.toggleBusy(False)
 
@@ -96,8 +89,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ensureCurrentOpen()
         self.toggleBusy(True)
         writerName, ok1 = QInputDialog.getItem(self,
-                                               '请选择写入器 / ImageZhuo',
-                                               '写入器',
+                                               '请选择写入器',
+                                               '写入器：',
                                                PRESET_WRITERS,
                                                editable=False)
         if ok1:
@@ -105,18 +98,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 'writer.{}'.format(writerName))
             writerClazz = eval('writerClazz.{}'.format(writerName))
             writer = writerClazz(currentImage)
-            savePath, _ = QFileDialog.getSaveFileName(self,
-                                                      '请选择保存路径 / ImageZhuo',
+            savePath, _ = QFileDialog.getSaveFileName(self, '请选择保存路径',
                                                       'C:/ImageZhuo_Save.raw')
             if savePath != '':
                 writer.save(savePath)
+                QMessageBox().information(self, '保存完毕！', '保存完毕！')
         self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_retinex_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
-        self.toggleBusy(True)
         # 处理后仍在4096级灰度范围
         retinexResult = Retinex(currentImage.data)
         currentImage.data = retinexResult
@@ -126,20 +119,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_otsu_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
-        self.toggleBusy()
         segmentationMask, th = OtsuSegmentation(currentImage.data8bit,
                                                 currentImage.h, currentImage.w)
         currentImage = MyImage(segmentationMask.shape[0],
                                segmentationMask.shape[1], segmentationMask)
         imageDisplay.loadFromMyImage(currentImage)
-        self.toggleBusy()
+        self.toggleBusy(False)
         QMessageBox().information(self, '大津阈值分割完成',
                                   '大津阈值分割完成！使用的阈值：{}'.format(th))
 
     @pyqtSlot()
     def on_btn_zoom_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
         # 调整当前是否在放大模式的指示
@@ -151,40 +145,43 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 允许放大拖拽事件处理
         imageDisplay.toggleDrag(self.inZoomMode)
         # @see handle_ImageDisplay_ZoomParams
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_mid_clicked(self):
         global currentImage
         ensureCurrentOpen()
-        ksize = QInputDialog.getInt(self,
-                                    '参数询问',
-                                    '请输入中值滤波核大小',
-                                    3,
-                                    min=3,
-                                    step=2)[0]
-        dstData = midFilter(currentImage.data, currentImage.h, currentImage.w,
-                            ksize)
-        currentImage.data = dstData
-        imageDisplay.loadFromMyImage(currentImage)
+        ksize, ok = QInputDialog.getInt(self,
+                                        '参数询问',
+                                        '请输入中值滤波核大小',
+                                        3,
+                                        min=3,
+                                        step=2)
+        if ok:
+            dstData = midFilter(currentImage.data, ksize)
+            currentImage.data = dstData
+            currentImage.reGen8bit()
+            imageDisplay.loadFromMyImage(currentImage)
 
     @pyqtSlot()
     def on_btn_unsharpmasking_clicked(self):
         global currentImage
         ensureCurrentOpen()
+        # TODO
 
     @pyqtSlot()
     def on_btn_rotate_clicked(self):
         global currentImage
         ensureCurrentOpen()
         item, ok = QInputDialog.getItem(self,
-                                        '请选择旋转角度 / ImageZhuo',
-                                        '旋转角度', ['90°', '180°', '270°'],
+                                        '请选择旋转角度',
+                                        '旋转角度：', ['90°', '180°', '270°'],
                                         editable=False)
         if ok:
             deg = int(item[:-1])
             rotatedImage = rotate(currentImage.data, deg)
-            currentImage = MyImage(rotatedImage.shape[0],
-                                   rotatedImage.shape[1], rotatedImage)
+            currentImage.data = rotatedImage
+            currentImage.reGen8bit()
             imageDisplay.loadFromMyImage(currentImage)
 
     @pyqtSlot()
@@ -198,16 +195,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_btn_mean_clicked(self):
         global currentImage
         ensureCurrentOpen()
-        ksize = QInputDialog.getInt(self,
-                                    '参数询问',
-                                    '请输入均值滤波核大小',
-                                    3,
-                                    min=3,
-                                    step=2)[0]
-        dstData = meanFilter(currentImage.data, currentImage.h, currentImage.w,
-                             ksize)
-        currentImage.data = dstData
-        imageDisplay.loadFromMyImage(currentImage)
+        ksize, ok = QInputDialog.getInt(self,
+                                        '参数询问',
+                                        '请输入均值滤波核大小',
+                                        3,
+                                        min=3,
+                                        step=2)
+        if ok:
+            dstData = meanFilter(currentImage.data, ksize)
+            currentImage.data = dstData
+            currentImage.reGen8bit()
+            imageDisplay.loadFromMyImage(currentImage)
 
     @pyqtSlot()
     def on_btn_reverse_clicked(self):
@@ -222,15 +220,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def on_btn_fft_clicked(self):
         global currentImage
         ensureCurrentOpen()
-        # FIXME 50%
-        padded = padZero2d(currentImage.data, nextPow2(currentImage.h),
-                           nextPow2(currentImage.w))
-        fftRes = fft2d(padded)
-        fftLog = np.log(fftRes)
-        # TODO fftshift
-        fftImg = normalize255(fftLog)
-        figureDisplay.updateFigure(Image.fromarray(fftImg))
-        figureDisplay.show()
+        if not imageDisplay.by50Percent:
+            self.toggleBusy(True)
+            padded = padZero2d(currentImage.data, nextPow2(currentImage.h),
+                               nextPow2(currentImage.w))
+            fftRes = fft2d(padded, fftshift=True)
+            # 幅度取对数便于观察
+            fftLog = normalize255(np.log(fftRes))
+            figureDisplay.updateFigure(Image.fromarray(fftLog))
+            figureDisplay.show()
+            self.toggleBusy(False)
+        else:
+            QMessageBox().critical(self, '无法进行2D FFT', '由于图像太大，无法进行2D FFT。',
+                                   QMessageBox.Yes, QMessageBox.Yes)
 
     @pyqtSlot()
     def on_btn_flip_clicked(self):
@@ -238,6 +240,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ensureCurrentOpen()
         flipRes = horizontalFlip(currentImage.data)
         currentImage.data = flipRes
+        currentImage.reGen8bit()
+        imageDisplay.loadFromMyImage(currentImage)
+
+    @pyqtSlot()
+    def on_btn_laplacian_clicked(self):
+        global currentImage
+        ensureCurrentOpen()
+        kOrder, ok = QInputDialog.getItem(self,
+                                          '请选择拉普拉斯核阶数',
+                                          '拉普拉斯核阶数：', ['1', '2'],
+                                          editable=False)
+
+        if ok:
+            kOrder = int(kOrder)
+            lapRes = laplacian(currentImage.data, kOrder)
+            currentImage.data = lapRes
+            currentImage.reGen8bit()
+            imageDisplay.loadFromMyImage(currentImage)
+
+    @pyqtSlot()
+    def on_btn_autowwwl_clicked(self):
+        global currentImage
+        ensureCurrentOpen()
+        currentImage.defaultWWWL()
+        currentImage.reGen8bit()
         imageDisplay.loadFromMyImage(currentImage)
 
 
@@ -272,7 +299,6 @@ def handle_OpenDialog_OpenDone(reader_):
     if reader.h >= 1080 or reader.w >= 1920:  # 以1080p屏幕为例判断显示不下的情况
         imageDisplay.toggleBy50Percent()
     imageDisplay.loadFromMyImage(currentImage)
-    disableResize(imageDisplay)
     openDialog.setVisible(False)
     imageDisplay.show()
 
@@ -286,11 +312,12 @@ def handle_WWWLDialog_WWWLDone(ww, wl):
     imageDisplay.loadFromMyImage(currentImage)
 
 
+# 处理异常，避免程序崩溃
 def customizedExceptHook(exceptionType, exceptionValue, exceptionTraceback):
     traceBackText = "".join(
         traceback.format_exception(exceptionType, exceptionValue,
                                    exceptionTraceback))
-    if exceptionType == ImageZhuoError:
+    if exceptionType == ImageZhuoError:  # ImageZhuo自定义类型异常
         QMessageBox.critical(mainWindow, '错误提示 / ImageZhuo',
                              exceptionValue.payload + '\n\n' + traceBackText,
                              QMessageBox.Yes, QMessageBox.Yes)
@@ -331,5 +358,8 @@ if __name__ == "__main__":
 
     # 直方图显示窗口
     figureDisplay = FigureDisplay()
+
+    # 提示用户等待窗口
+    waitDialog = WaitDialog()
 
     sys.exit(app.exec_())

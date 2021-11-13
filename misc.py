@@ -4,6 +4,7 @@
 from PIL import Image
 import numpy as np
 from function.window import windowData
+from utils import getMinMax
 
 
 # 自定义异常类
@@ -20,8 +21,7 @@ class MyImage():
         self.w = w  # 宽
         self.data: np.ndarray = data  # 原始数据
 
-        max_ = np.max(data)
-        min_ = np.min(data)
+        min_, max_ = getMinMax(self.data)
         self.ww = max_ - min_  # 窗宽，默认为max_-min_
         self.wl = self.ww // 2  # 窗位，默认为ww/2
         self.dtype = str(self.data.dtype)  # 原始数据的数据类型
@@ -37,3 +37,9 @@ class MyImage():
             self.wl) if self.data.dtype == np.uint16 else self.data
         self.data8bit = np.array(data, dtype=np.uint8)
         self.PILImg8bit = Image.fromarray(self.data8bit)
+
+    # 重置为默认窗宽窗位
+    def defaultWWWL(self):
+        min_, max_ = getMinMax(self.data)
+        self.ww = max_ - min_  # 窗宽，默认为max_-min_
+        self.wl = self.ww // 2  # 窗位，默认为ww/2

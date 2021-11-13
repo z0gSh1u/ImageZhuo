@@ -2,7 +2,7 @@
   "header": {
     "comment": "eric project file for project ImageZhuo",
     "copyright": "Copyright (C) 2021 z0gSh1u, zx.cs@qq.com",
-    "saved": "2021-11-13, 16:55:09"
+    "saved": "2021-11-13, 21:00:39"
   },
   "project": {
     "AUTHOR": "z0gSh1u",
@@ -39,7 +39,8 @@
       "ui/MainWindow.ui",
       "ui/OpenDialog.ui",
       "ui/WWWLDialog.ui",
-      "ui/FigureDisplay.ui"
+      "ui/FigureDisplay.ui",
+      "ui/WaitDialog.ui"
     ],
     "HASH": "a78191b18183cdfd5af189916f10d9362b0d7138",
     "IDLPARAMS": {
@@ -148,7 +149,9 @@
       "writer/BaoWriter.py",
       "writer/_BaseWriter.py",
       "writer/_MetaInfo.py",
-      "writer/__init__.py"
+      "writer/__init__.py",
+      "ui/Ui_WaitDialog.py",
+      "ui/WaitDialog.py"
     ],
     "SPELLEXCLUDES": "",
     "SPELLLANGUAGE": "en_US",

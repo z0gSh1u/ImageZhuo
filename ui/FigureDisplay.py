@@ -15,9 +15,9 @@ class FigureDisplay(QDialog, Ui_FigureDisplay):
         super(FigureDisplay, self).__init__(parent)
         self.setupUi(self)
 
-    def updateFigure(self, histImage: Image.Image):
+    def updateFigure(self, img: Image.Image):
         windowPadding = 4
-        w, h = histImage.size
+        w, h = img.size
         self.resize(w + windowPadding * 2, h + windowPadding * 2)
         self.lbl_display.resize(w, h)
-        self.lbl_display.setPixmap(histImage.toqpixmap())
+        self.lbl_display.setPixmap(img.toqpixmap())

@@ -7,6 +7,8 @@
 import numpy as np
 import math
 
+from utils import normalize01
+
 PI = math.pi
 
 
@@ -15,10 +17,11 @@ def nextPow2(x: int):
     if x == 1: return 2
     y = 2
     while y < x:
-        y = y**2
+        y = y * 2
     return y
 
 
+# 空域补0
 def padZero2d(data: np.ndarray, newH, newW):
     dh = newH - data.shape[0]
     dw = newW - data.shape[1]
@@ -26,26 +29,24 @@ def padZero2d(data: np.ndarray, newH, newW):
     return padded
 
 
-# TODO
-def fftshift(data: np.ndarray):
-    pass
-
-
-def fft2d(data: np.ndarray):
+# 二维FFT
+def fft2d(data_: np.ndarray, fftshift=False):
     # 分离为两个方向的一维FFT，O(n^2logn)
-    data = list(np.array(data))
+    # 归一化
+    data = list(normalize01(data_))
+    # 低频移动到中心
+    if fftshift:
+        for r in range(len(data)):
+            for c in range(len(data[0])):
+                data[r][c] *= (-1)**(r + c)
     # 行方向
-    for rowIndex in range(len(data)):
-        row = convert_to_complex(data[rowIndex])
-        rowFT = fft_dit2(row)
-        data[rowIndex] = rowFT
-    data = list(np.array(data).T)
+    for r in range(len(data)):
+        data[r] = fft_dit2(convert_to_complex(data[r]))
+    data = list(np.array(data).T)  # 转置调换行列
     # 列方向
-    for colIndex in range(len(data[0])):
-        col = convert_to_complex(data[colIndex])
-        colFT = fft_dit2(col)
-        data[colIndex] = convert_to_amplitude(colFT)
-    return data
+    for c in range(len(data[0])):
+        data[c] = convert_to_amplitude(fft_dit2(data[c]))
+    return np.array(data, dtype=float).T  # 转置回来
 
 
 class Complex:

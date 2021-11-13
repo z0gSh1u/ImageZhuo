@@ -3,11 +3,13 @@
 
 import numpy as np
 
+from utils import getMinMax
+
+
 # 图片反相
 def reverse(img: np.ndarray):
     h, w = img.shape
-    max_ = np.max(img)
-    min_ = np.min(img)
+    min_, max_ = getMinMax(img)
     res = np.zeros_like(img, dtype=img.dtype)
     for r in range(h):
         for c in range(w):

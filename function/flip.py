@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 def horizontalFlip(img: np.ndarray):
     h, w = img.shape
     res = np.zeros_like(img, dtype=img.dtype)

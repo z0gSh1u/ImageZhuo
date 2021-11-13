@@ -5,20 +5,25 @@
 
 import numpy as np
 
+from utils import getMinMax
+
+# TODO
+
 
 # 在0~N（N可不为256）范围内做同态滤波
-def Retinex(I: np.ndarray, HL=0.8, HH=1.85, C=1, CUT_FREQ=40):
+def Retinex(I_: np.ndarray, HL=0.8, HH=1.85, C=1, CUT_FREQ=40):
     # HL 低频减益系数
     # HH 高频增益系数
     # C 坡度控制参数
     # CUT_FREQ 截止频率
 
-    minI = np.min(I)
-    maxI = np.max(I)
+    minI, maxI = getMinMax(I_)
 
-    I = I + 1.  # 避免log(0)错误
+    I = I_.copy() + 1.  # 避免log(0)错误
     # 不使用 I=I+微小量 的原因是log(0)→-∞，会对后续exp过程产生影响
     I_log = np.log(I)  # log I = log L + log R
+
+    # * 为保证运算效率，此处调用了numpy的FFT，而非自己实现的FFT。自己实现的FFT可见function/fft.py
     I_log_fft = np.fft.fft2(I_log)  # 对数域作DFT转入频域
     I_log_fft_shift = np.fft.fftshift(I_log_fft)  # shift结果，把低频放到中心而不是四角
 
@@ -47,10 +52,11 @@ def Retinex(I: np.ndarray, HL=0.8, HH=1.85, C=1, CUT_FREQ=40):
     R = R - 1  # 把之前加的1减去
     # 化到原有区间
     R_norm = np.zeros(R.shape)
-    minR, maxR = np.min(R), np.max(R)
+    minR, maxR = getMinMax(R)
     rangeR = maxR - minR
     for i in range(R.shape[0]):
         for j in range(R.shape[1]):
             R_norm[i, j] = (R[i, j] - minR) / rangeR * (maxI - minI) + minI
 
-    return np.asarray(R_norm, dtype=I.dtype)
+    res = np.array(R_norm, dtype=I_.dtype)
+    return res

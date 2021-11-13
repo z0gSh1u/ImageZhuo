@@ -16,8 +16,9 @@ def intToBytes(int_, byteLength: int, littleEndian=True):
 
 
 # Forbid QT Component resize.
-def disableResize(qtComponent):
-    qtComponent.setFixedSize(qtComponent.size())
+def disableResize(qtComponent, h=None, w=None):
+    size = (w, h) if h is not None and w is not None else qtComponent.size()
+    qtComponent.setFixedSize(size)
 
 
 # Clip.
@@ -27,9 +28,31 @@ def minmaxClip(v, min_, max_):
 
 # Normalize img to 0~255 uint8.
 def normalize255(img):
-    res = np.zeros_like(img, dtype=np.uint8)
+    res = np.zeros_like(img)
     targetRange = 255
     l = np.min(img)
     r = np.max(img)
-    res = (res - l) / (r - l) * targetRange
-    return res
+    res = (img - l) / (r - l) * targetRange
+    return np.array(res, dtype=np.uint8)
+
+
+# Get min max.
+def getMinMax(arr):
+    return np.min(arr), np.max(arr)
+
+
+# Normalize result according to dynamic range of base.
+def normalizeToImg(result, base):
+    norm = np.zeros_like(result, dtype=float)
+    minR, maxR = getMinMax(result)
+    min_, max_ = getMinMax(base)
+    norm = (result - minR) / (maxR - minR) * (max_ - min_)
+    return norm
+
+
+# 0-1 normalize
+def normalize01(arr):
+    norm = np.zeros_like(arr, dtype=float)
+    min_, max_ = getMinMax(arr)
+    norm = (arr - min_) / (max_ - min_)
+    return norm

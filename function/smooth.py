@@ -4,8 +4,8 @@
 import numpy as np
 
 
-def smoothFilter(data: np.ndarray, h, w, filterSize: int,
-                 replacer) -> np.ndarray:
+def smoothFilter(data: np.ndarray, filterSize: int, replacer) -> np.ndarray:
+    h, w = data.shape
     # 周围一圈保留处理
     padding = (filterSize - 1) // 2
 
@@ -28,11 +28,11 @@ def smoothFilter(data: np.ndarray, h, w, filterSize: int,
 
 
 # 均值滤波
-def meanFilter(data, h, w, filterSize: int):
-    return smoothFilter(data, h, w, filterSize, lambda x: sum(x) / len(x))
+def meanFilter(data, filterSize: int):
+    return smoothFilter(data, filterSize, lambda x: sum(x) / len(x))
 
 
 # 中值滤波
-def midFilter(data, h, w, filterSize: int):
-    return smoothFilter(data, h, w, filterSize,
+def midFilter(data, filterSize: int):
+    return smoothFilter(data, filterSize,
                         lambda x: sorted(x)[(len(x) + 1) // 2 - 1])
