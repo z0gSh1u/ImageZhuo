@@ -1,12 +1,15 @@
 # Rotate
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
-from PIL import Image
+# 《数字图像处理基础》（鲍旭东）课程实验 1 - 图像的旋转和缩放
+# 212138-卓旭
+
 import numpy as np
 import math
+from zoom import bilinearInterp
 
 
-def rotate(img, deg):
+def rotate(img: np.ndarray, deg):
     h, w = img.shape
     res = np.zeros((h, w), dtype=float)
     rad = deg * math.pi / 180.
@@ -23,6 +26,6 @@ def rotate(img, deg):
             c1 = math.floor(c_)
             # 避免 +1 越界
             if c1 >= 0 and r1 >= 0 and c1 < w - 1 and r1 < h - 1:
-                res[r, c] = biliear_interp(img, r_, c_)
+                res[r, c] = bilinearInterp(img, r_, c_)
 
-    return res
+    return np.array(res, dtype=img.dtype)

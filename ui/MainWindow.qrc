@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icon">
+    <file>asset/hourglass.png</file>
     <file>asset/bitbug_favicon.ico</file>
   </qresource>
   <qresource prefix="banner">

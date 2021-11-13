@@ -27,44 +27,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="1">
-     <widget class="QLineEdit" name="edt_height"/>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>像素格式</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>文件路径</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
      <widget class="QLineEdit" name="edt_width"/>
-    </item>
-    <item row="4" column="1">
-     <widget class="QComboBox" name="combo_pixelFormat"/>
-    </item>
-    <item row="0" column="2">
-     <widget class="QPushButton" name="btn_browse">
-      <property name="text">
-       <string>浏览..</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>高</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="edt_filePath"/>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
@@ -76,21 +39,17 @@
     <item row="1" column="1">
      <widget class="QComboBox" name="combo_reader"/>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_3">
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>宽</string>
+       <string>高</string>
       </property>
      </widget>
     </item>
     <item row="5" column="1">
-     <widget class="QPushButton" name="btn_done">
-      <property name="text">
-       <string>确定</string>
-      </property>
-     </widget>
+     <widget class="QComboBox" name="combo_pixelFormat"/>
     </item>
-    <item row="5" column="2">
+    <item row="6" column="2">
      <widget class="QLabel" name="lbl_hourglass">
       <property name="text">
        <string/>
@@ -100,12 +59,51 @@
       </property>
      </widget>
     </item>
+    <item row="6" column="1">
+     <widget class="QPushButton" name="btn_done">
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>宽</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>像素格式</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="edt_height"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>文件路径</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="edt_filePath"/>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="btn_browse">
+      <property name="text">
+       <string>浏览..</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>edt_filePath</tabstop>
-  <tabstop>btn_browse</tabstop>
   <tabstop>combo_reader</tabstop>
   <tabstop>edt_width</tabstop>
   <tabstop>edt_height</tabstop>

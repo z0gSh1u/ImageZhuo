@@ -1,6 +1,7 @@
 # BaoWriter
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
+from utils import intToBytes
 from . import _BaseWriter
 from misc import MyImage
 
@@ -16,11 +17,11 @@ class BaoWriter(_BaseWriter):
     def save(self, path):
         dstBytes = b''
         # 宽高
-        dstBytes += int.to_bytes(self.img.w, 4, 'little')
-        dstBytes += int.to_bytes(self.img.h, 4, 'little')
+        dstBytes += intToBytes(self.img.w, 4, 'little')
+        dstBytes += intToBytes(self.img.h, 4, 'little')
         # 图像数据
         for pixel in self.img.data.ravel():
-            dstBytes += int.to_bytes(pixel, 2, 'little')
-        assert len(dstBytes) == 4 + 4 + 2 * self.img.h * self.img.w
+            dstBytes += intToBytes(pixel, 2, 'little')
+        assert len(dstBytes) == 4 + 4 + 2 * int(self.img.h * self.img.w)
         with open(path, 'wb') as f:
             f.write(dstBytes)

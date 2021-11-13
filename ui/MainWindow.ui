@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>617</width>
-    <height>336</height>
+    <width>621</width>
+    <height>369</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>ImageZhuo / 212138-卓旭 @ github.com/z0gSh1u/ImageZhuo</string>
@@ -24,7 +30,7 @@
       <x>10</x>
       <y>80</y>
       <width>601</width>
-      <height>200</height>
+      <height>205</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -52,7 +58,7 @@
      <item row="3" column="0">
       <widget class="QPushButton" name="btn_zoom">
        <property name="text">
-        <string>缩放</string>
+        <string>放大 [未激活]</string>
        </property>
       </widget>
      </item>
@@ -139,10 +145,21 @@
         <font>
          <family>微软雅黑</family>
          <pointsize>10</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
         <string>ImageZhuo 功能列表</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="btn_reset">
+       <property name="text">
+        <string>重置为原图</string>
        </property>
       </widget>
      </item>
@@ -151,8 +168,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>290</y>
+      <x>170</x>
+      <y>320</y>
       <width>451</width>
       <height>16</height>
      </rect>
@@ -175,6 +192,22 @@
     </property>
     <property name="pixmap">
      <pixmap resource="MainWindow.qrc">:/banner/asset/banner.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_busy">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>300</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="MainWindow.qrc">:/icon/asset/hourglass.png</pixmap>
     </property>
    </widget>
   </widget>

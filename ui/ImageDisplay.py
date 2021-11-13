@@ -3,7 +3,7 @@
 Module implementing ImageDisplay.
 """
 
-from PyQt5.QtCore import QPoint, QRect, pyqtSlot
+from PyQt5.QtCore import QPoint, QRect, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QColor, QPainter, QPen
 from PyQt5.QtWidgets import QDialog
 
@@ -17,6 +17,9 @@ from utils import disableResize
 
 
 class ImageDisplay(QDialog, Ui_Dialog):
+
+    _SignalZoomParams = pyqtSignal(QPoint, QPoint)
+
     def __init__(self, parent=None):
         super(ImageDisplay, self).__init__(parent)
         self.setupUi(self)
@@ -24,29 +27,29 @@ class ImageDisplay(QDialog, Ui_Dialog):
 
         self.setWindowTitle(self.windowTitle() + ' (50 %)')
 
+        self.lbl_display._SignalZoomDragDone.connect(
+            self.handle_ImageDisplayWidget_ZoomDragDone)
+
+    def handle_ImageDisplayWidget_ZoomDragDone(self, p0, p1):
+        self._SignalZoomParams.emit(p0, p1)
+
+    def toggleDrag(self, to: bool):
+        self.lbl_display.enableDrag = to
+
     def loadByMyImage(self, img: MyImage):
         self.img = img
+        self.lbl_display.aspect = self.img.h / self.img.w
 
-        data256 = img.data
-        min_ = np.min(data256)
-        max_ = np.max(data256)
-        data256 = (data256 - min_) / (max_ - min_) * 255
-        data256 = np.array(data256, dtype=np.uint8)
-
-        image256 = Image.fromarray(data256)
+        img256 = img.PILImg8bit
 
         # wh
-        tsize = list(map(lambda x: x // 2, image256.size))
+        tsize = list(map(lambda x: x // 2, img256.size))
         twsize = list(map(lambda x: x + 4, tsize))
-        image256 = image256.resize(tuple(tsize), Image.BICUBIC)
+        img256 = img256.resize(tuple(tsize), Image.BICUBIC)
 
         self.resize(*twsize)
-        # disableResize(self)
-
         self.lbl_display.resize(*tsize)
-        # disableResize(self.lbl_display)
-
-        self.lbl_display.setPixmap(image256.toqpixmap())
+        self.lbl_display.setPixmap(img256.toqpixmap())
 
     def refresh(self, data8bit):
         image256 = Image.fromarray(data8bit)

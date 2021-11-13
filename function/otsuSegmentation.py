@@ -1,14 +1,17 @@
 # Otsu threshold segmentation
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
+# 注：本部分代码修改自本人本科的《数字图像处理》（鲍旭东）课程实验代码，学号09017227
+
 import numpy as np
 
 
 # 大津阈值分割，返回二值图
-def OtsuSegmentation(data: np.ndarray, h, w):
-    min_ = np.min(data)
-    max_ = np.max(data)
-    res = np.zeros_like(data, dtype=np.uint8)
+# ! 为保证运算速度，只在256级灰度做阈值测试
+def OtsuSegmentation(data8bit: np.ndarray, h, w):
+    # min_ = np.min(data); max_ = np.max(data)
+    min_ = 0; max_ = 255
+    res = np.zeros_like(data8bit, dtype=np.uint8)
     total_pixel = h * w
 
     def OtsuThreshold(I):
@@ -34,10 +37,10 @@ def OtsuSegmentation(data: np.ndarray, h, w):
                 best_th = th
         return best_th
 
-    threshold = OtsuThreshold(data)
+    threshold = OtsuThreshold(data8bit)
     # 按该阈值进行二值化
     for i in range(h):
         for j in range(w):
-            res[i, j] = 255 if data[i, j] > threshold else 0
+            res[i, j] = 255 if data8bit[i, j] > threshold else 0
 
     return res

@@ -1,3 +1,3 @@
 PRESET_WRITERS = [
-    {'Name': 'BaoWriter'}
+    'BaoWriter'
 ]

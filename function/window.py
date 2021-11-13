@@ -5,7 +5,11 @@ import numpy as np
 
 
 # 使用WW/WL限定data的窗宽窗位，然后拉伸到minGray~maxGray
-def windowData(data: np.ndarray, ww: int, wl: int, minGray: int, maxGray: int):
+def windowData(data: np.ndarray,
+               ww: int,
+               wl: int,
+               minGray: int = 0,
+               maxGray: int = 255):
     res = data.copy()
     l = wl - ww // 2
     r = wl + ww // 2

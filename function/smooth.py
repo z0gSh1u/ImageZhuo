@@ -4,7 +4,8 @@
 import numpy as np
 
 
-def smoothFilter(data, h, w, filterSize: int, replacer) -> np.ndarray:
+def smoothFilter(data: np.ndarray, h, w, filterSize: int,
+                 replacer) -> np.ndarray:
     # 周围一圈保留处理
     padding = (filterSize - 1) // 2
 
@@ -23,7 +24,7 @@ def smoothFilter(data, h, w, filterSize: int, replacer) -> np.ndarray:
             if i < padding or j < padding or i > h - padding - 1 or j > w - padding - 1:
                 continue
             result[i, j] = replacer(getNeighborAndMe(i, j, padding))
-    return result
+    return np.array(result, dtype=data.dtype)
 
 
 # 均值滤波

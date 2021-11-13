@@ -1,6 +1,7 @@
 # FFT 2D
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
+# 注：本部分代码修改自本人本科的《数字信号处理》（舒华忠）课程实验代码，学号09017227
 # https://www.cnblogs.com/zxuuu/p/12425321.html
 
 import numpy as np
