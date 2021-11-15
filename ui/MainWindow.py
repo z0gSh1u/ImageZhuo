@@ -196,10 +196,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                                         editable=False)
         if ok:
             deg = int(item[:-1])
+            self.toggleBusy(True)
             rotatedImage = rotate(currentImage.data, deg)
             currentImage.data = rotatedImage
             currentImage.reGen8bit()
             imageDisplay.loadFromMyImage(currentImage)
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_reset_clicked(self):

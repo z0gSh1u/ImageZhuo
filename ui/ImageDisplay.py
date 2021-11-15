@@ -48,6 +48,7 @@ class ImageDisplay(QDialog, Ui_Dialog):
     def loadFromPIL8bit(self, pil8bit: Image.Image):
         if self.by50Percent:
             targetDisplaySize = tuple(map(lambda x: x // 2, pil8bit.size))
+            # * 由于自己实现的缩放（function/zoom.py）在大图像上效率不高，故此处仍调用PIL库的缩放功能
             pil8bit = pil8bit.resize(targetDisplaySize, Image.BICUBIC)
         else:
             targetDisplaySize = pil8bit.size

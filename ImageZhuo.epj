@@ -2,7 +2,7 @@
   "header": {
     "comment": "eric project file for project ImageZhuo",
     "copyright": "Copyright (C) 2021 z0gSh1u, zx.cs@qq.com",
-    "saved": "2021-11-15, 14:47:06"
+    "saved": "2021-11-15, 19:02:28"
   },
   "project": {
     "AUTHOR": "z0gSh1u",
@@ -41,7 +41,6 @@
       "ui/OpenDialog.ui",
       "ui/WaitDialog.ui",
       "ui/WWWLDialog.ui",
-      "ui/RetinexParam.ui",
       "ui/RetinexParamDialog.ui"
     ],
     "HASH": "a78191b18183cdfd5af189916f10d9362b0d7138",

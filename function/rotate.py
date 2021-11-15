@@ -9,7 +9,7 @@ import math
 from .zoom import bilinearInterp
 
 
-def rotate(img: np.ndarray, deg):
+def rotate(img: np.ndarray, deg: int):
     h, w = img.shape
     res = np.zeros((h, w), dtype=float)
     rad = deg * math.pi / 180.

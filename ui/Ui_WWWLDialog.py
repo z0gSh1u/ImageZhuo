@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\ImageZhuo\ui/WWWLDialog.ui'
+# Form implementation generated from reading ui file 'F:\ImageZhuo\ui\WWWLDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,12 +11,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(242, 193)
-        Dialog.setSizeGripEnabled(True)
-        self.gridLayoutWidget = QtWidgets.QWidget(Dialog)
+class Ui_WWWLDialog(object):
+    def setupUi(self, WWWLDialog):
+        WWWLDialog.setObjectName("WWWLDialog")
+        WWWLDialog.resize(242, 193)
+        WWWLDialog.setSizeGripEnabled(True)
+        self.gridLayoutWidget = QtWidgets.QWidget(WWWLDialog)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 221, 171))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
@@ -40,22 +40,22 @@ class Ui_Dialog(object):
         self.btn_apply.setObjectName("btn_apply")
         self.gridLayout.addWidget(self.btn_apply, 2, 1, 1, 1)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(WWWLDialog)
+        QtCore.QMetaObject.connectSlotsByName(WWWLDialog)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, WWWLDialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label_2.setText(_translate("Dialog", "窗位 WL"))
-        self.label.setText(_translate("Dialog", "窗宽 WW"))
-        self.btn_apply.setText(_translate("Dialog", "应用"))
+        WWWLDialog.setWindowTitle(_translate("WWWLDialog", "窗宽窗位调节"))
+        self.label_2.setText(_translate("WWWLDialog", "窗位 WL"))
+        self.label.setText(_translate("WWWLDialog", "窗宽 WW"))
+        self.btn_apply.setText(_translate("WWWLDialog", "应用"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    WWWLDialog = QtWidgets.QDialog()
+    ui = Ui_WWWLDialog()
+    ui.setupUi(WWWLDialog)
+    WWWLDialog.show()
     sys.exit(app.exec_())

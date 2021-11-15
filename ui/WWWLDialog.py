@@ -6,14 +6,12 @@
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import QDialog
 
-from Ui_WWWLDialog import Ui_Dialog
+from Ui_WWWLDialog import Ui_WWWLDialog
 
 
-class WWWLDialog(QDialog, Ui_Dialog):
+class WWWLDialog(QDialog, Ui_WWWLDialog):
     _SignalWWWLDone = pyqtSignal(int, int)
-    """
-    Class documentation goes here.
-    """
+    
     def __init__(self, parent=None):
         super(WWWLDialog, self).__init__(parent)
         self.setupUi(self)
