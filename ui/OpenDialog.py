@@ -11,6 +11,7 @@ from Ui_OpenDialog import Ui_OpenDialog
 import sys
 import os.path as path
 import importlib
+from utils import myAssert
 
 dirname__ = path.dirname(path.abspath(__file__))
 sys.path.append(path.join(dirname__, '../'))
@@ -49,11 +50,25 @@ class OpenDialog(QDialog, Ui_OpenDialog):
                 'reader.{}'.format(selectedReader))
             readerClazz = eval('readerClazz.{}'.format(selectedReader))
             self.reader = readerClazz(selectedFilePath)
-            self.edt_width.setText(str(self.reader.w))
-            self.edt_height.setText(str(self.reader.h))
-
+            # 适配其他raw格式的reader不能自动解析宽高
+            self.edt_width.setText(
+                str('N/A' if self.reader.w is None else self.reader.w))
+            self.edt_height.setText(
+                str('N/A' if self.reader.h is None else self.reader.h))
         self.lbl_hourglass.setVisible(False)
 
     @pyqtSlot()
     def on_btn_done_clicked(self):
+        # 进一步检查相关参数
+        myAssert(
+            len(self.edt_width.getText().strip()) > 0
+            and len(self.edt_height.getText().strip()) > 0, '请输入图像的宽高！')
+        try:
+            if self.reader.w is None:
+                self.reader.w = int(self.edt_width.getText())
+            if self.reader.h is None:
+                self.reader.h = int(self.edt_height.getText())
+        except:
+            myAssert(False, '请检查宽高是否合法，要求为正整数！')
+        myAssert(self.reader.w > 0 and self.reader.h > 0, '请检查宽高是否合法，要求为正整数！')
         self._SignalOpenDone.emit(self.reader)  # 将reader托管到父窗口

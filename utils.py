@@ -3,6 +3,8 @@
 
 import numpy as np
 
+from misc import ImageZhuoError
+
 
 # Convert bytes data to integer.
 def bytesToInt(bytes_, littleEndian=True):
@@ -56,3 +58,9 @@ def normalize01(arr):
     min_, max_ = getMinMax(arr)
     norm = (arr - min_) / (max_ - min_)
     return norm
+
+
+# 断言
+def myAssert(cond, hint):
+    if not cond:
+        raise ImageZhuoError(hint)

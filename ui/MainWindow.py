@@ -20,7 +20,6 @@ from OpenDialog import OpenDialog
 from WWWLDialog import WWWLDialog
 from ImageDisplay import ImageDisplay
 from FigureDisplay import FigureDisplay
-from function.sharpen import laplacian
 
 from reader import _BaseReader
 from ui.WaitDialog import WaitDialog
@@ -36,6 +35,8 @@ from function.rotate import rotate
 from function.reverse import reverse
 from function.fft import fft2d, nextPow2, padZero2d
 from function.flip import horizontalFlip
+from function.sharpen import laplacian
+from function.unsharpMasking import unsharpMaskingMeanFilter
 
 from misc import MyImage, ImageZhuoError
 from utils import disableResize, normalize255
@@ -149,6 +150,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_mid_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
         ksize, ok = QInputDialog.getInt(self,
@@ -162,12 +164,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             currentImage.data = dstData
             currentImage.reGen8bit()
             imageDisplay.loadFromMyImage(currentImage)
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_unsharpmasking_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
-        # TODO
+        ksize, ok1 = QInputDialog.getItem(self,
+                                          '请选择均值核尺寸',
+                                          '均值核尺寸：', ['3', '5', '7', '9'],
+                                          editable=False)
+        if ok1:
+            ksize = int(ksize)
+            k, ok2 = QInputDialog.getDouble(self, '请输入残差权重', '残差权重：', 1.0, 1.0,
+                                            5.0)
+            if ok2:
+                res = unsharpMaskingMeanFilter(currentImage.data, ksize, k)
+                currentImage.data = res
+                currentImage.reGen8bit()
+                imageDisplay.loadFromMyImage(currentImage)
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_rotate_clicked(self):
@@ -193,6 +210,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_mean_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
         ksize, ok = QInputDialog.getInt(self,
@@ -206,6 +224,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             currentImage.data = dstData
             currentImage.reGen8bit()
             imageDisplay.loadFromMyImage(currentImage)
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_reverse_clicked(self):
