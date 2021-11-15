@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from utils import getMinMax
+from misc.utils import getMinMax
 
 
 # 图片反相

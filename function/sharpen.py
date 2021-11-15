@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from utils import normalizeToImg
+from misc.utils import normalizeToImg
 
 LAPLACIAN_KERNEL = [
     [],

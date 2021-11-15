@@ -1,11 +1,11 @@
 # Metadata
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
-from misc import MyImage
+from misc.classes import MyImage
 from reader import _BaseReader
 import numpy as np
 
-from utils import getMinMax
+from misc.utils import getMinMax
 
 
 def metaDataAsStr(reader: _BaseReader, img: MyImage):

@@ -5,13 +5,11 @@
 
 import numpy as np
 
-from utils import getMinMax
-
-# TODO
+from misc.utils import getMinMax
 
 
 # 在0~N（N可不为256）范围内做同态滤波
-def Retinex(I_: np.ndarray, HL=0.8, HH=1.85, C=1, CUT_FREQ=40):
+def Retinex(I_: np.ndarray, HH=1.8, HL=0.8, C=1, CUT_FREQ=40):
     # HL 低频减益系数
     # HH 高频增益系数
     # C 坡度控制参数

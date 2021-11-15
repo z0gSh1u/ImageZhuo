@@ -9,15 +9,17 @@ from PyQt5.QtWidgets import QDialog
 
 from Ui_ImageDisplay import Ui_Dialog
 
-from misc import MyImage
+from misc.classes import MyImage
 from PIL import Image
 
-from utils import disableResize
+from misc.utils import disableResize
 
 
 class ImageDisplay(QDialog, Ui_Dialog):
     # 向上回报放大参数
     _SignalZoomParams = pyqtSignal(QPoint, QPoint)
+    # 向上回报窗口关闭
+    _SignalWindowClose = pyqtSignal()
 
     def __init__(self, parent=None):
         super(ImageDisplay, self).__init__(parent)
@@ -57,3 +59,7 @@ class ImageDisplay(QDialog, Ui_Dialog):
         self.resize(*targetWindowSize)
         self.lbl_display.resize(*targetDisplaySize)
         self.lbl_display.setPixmap(pil8bit.toqpixmap())
+
+    # 关闭窗口时销毁reader和currentImage
+    def closeEvent(self, event) -> None:
+        self._SignalWindowClose.emit()

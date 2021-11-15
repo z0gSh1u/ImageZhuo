@@ -59,7 +59,7 @@
      <item row="4" column="2">
       <widget class="QPushButton" name="btn_laplacian">
        <property name="text">
-        <string>拉普拉斯算子</string>
+        <string>拉普拉斯锐化</string>
        </property>
       </widget>
      </item>

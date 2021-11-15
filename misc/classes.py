@@ -1,10 +1,10 @@
-# misc
+# misc classes
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
 from PIL import Image
 import numpy as np
 from function.window import windowData
-from utils import getMinMax
+from misc.utils import getMinMax
 
 
 # 自定义异常类

@@ -46,9 +46,6 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QComboBox" name="combo_pixelFormat"/>
-    </item>
     <item row="6" column="2">
      <widget class="QLabel" name="lbl_hourglass">
       <property name="text">
@@ -100,6 +97,9 @@
       </property>
      </widget>
     </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="edt_pixelFormat"/>
+    </item>
    </layout>
   </widget>
  </widget>
@@ -107,7 +107,6 @@
   <tabstop>combo_reader</tabstop>
   <tabstop>edt_width</tabstop>
   <tabstop>edt_height</tabstop>
-  <tabstop>combo_pixelFormat</tabstop>
   <tabstop>btn_done</tabstop>
  </tabstops>
  <resources>

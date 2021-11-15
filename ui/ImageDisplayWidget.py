@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtCore import QPoint, QRect, pyqtSignal
 from PyQt5.QtGui import QColor, QPainter, QPen
 
-from utils import minmaxClip
+from misc.utils import minmaxClip
 
 
 class ImageDisplayWidget(QLabel):

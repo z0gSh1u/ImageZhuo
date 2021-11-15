@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\ImageZhuo\ui/OpenDialog.ui'
+# Form implementation generated from reading ui file 'F:\ImageZhuo\ui\OpenDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -34,9 +34,6 @@ class Ui_OpenDialog(object):
         self.label_4 = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 4, 0, 1, 1)
-        self.combo_pixelFormat = QtWidgets.QComboBox(self.gridLayoutWidget)
-        self.combo_pixelFormat.setObjectName("combo_pixelFormat")
-        self.gridLayout.addWidget(self.combo_pixelFormat, 5, 1, 1, 1)
         self.lbl_hourglass = QtWidgets.QLabel(self.gridLayoutWidget)
         self.lbl_hourglass.setText("")
         self.lbl_hourglass.setPixmap(QtGui.QPixmap(":/icon/asset/hourglass.png"))
@@ -63,13 +60,15 @@ class Ui_OpenDialog(object):
         self.btn_browse = QtWidgets.QPushButton(self.gridLayoutWidget)
         self.btn_browse.setObjectName("btn_browse")
         self.gridLayout.addWidget(self.btn_browse, 2, 2, 1, 1)
+        self.edt_pixelFormat = QtWidgets.QLineEdit(self.gridLayoutWidget)
+        self.edt_pixelFormat.setObjectName("edt_pixelFormat")
+        self.gridLayout.addWidget(self.edt_pixelFormat, 5, 1, 1, 1)
 
         self.retranslateUi(OpenDialog)
         QtCore.QMetaObject.connectSlotsByName(OpenDialog)
         OpenDialog.setTabOrder(self.combo_reader, self.edt_width)
         OpenDialog.setTabOrder(self.edt_width, self.edt_height)
-        OpenDialog.setTabOrder(self.edt_height, self.combo_pixelFormat)
-        OpenDialog.setTabOrder(self.combo_pixelFormat, self.btn_done)
+        OpenDialog.setTabOrder(self.edt_height, self.btn_done)
 
     def retranslateUi(self, OpenDialog):
         _translate = QtCore.QCoreApplication.translate

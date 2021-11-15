@@ -2,7 +2,7 @@
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
 from . import _BaseReader
-from utils import bytesToInt
+from misc.utils import bytesToInt
 import numpy as np
 import os
 

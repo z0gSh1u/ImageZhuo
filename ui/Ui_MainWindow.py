@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
         self.btn_metadata.setText(_translate("MainWindow", "当前图像元信息"))
         self.btn_unsharpmasking.setText(_translate("MainWindow", "Unsharp Masking"))
         self.btn_retinex.setText(_translate("MainWindow", "Retinex 同态滤波"))
-        self.btn_laplacian.setText(_translate("MainWindow", "拉普拉斯算子"))
+        self.btn_laplacian.setText(_translate("MainWindow", "拉普拉斯锐化"))
         self.btn_mean.setText(_translate("MainWindow", "均值滤波"))
         self.btn_wwwl.setText(_translate("MainWindow", "调节窗宽窗位"))
         self.btn_open.setText(_translate("MainWindow", "打开图像"))

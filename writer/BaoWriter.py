@@ -1,9 +1,9 @@
 # BaoWriter
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
-from utils import intToBytes
+from misc.utils import intToBytes
 from . import _BaseWriter
-from misc import MyImage
+from misc.classes import MyImage
 
 
 # 鲍老师RAW格式保存接口

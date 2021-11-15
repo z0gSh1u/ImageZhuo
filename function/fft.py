@@ -7,7 +7,7 @@
 import numpy as np
 import math
 
-from utils import normalize01
+from misc.utils import normalize01
 
 PI = math.pi
 

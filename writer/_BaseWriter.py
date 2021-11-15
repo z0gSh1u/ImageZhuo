@@ -1,8 +1,7 @@
 # _BaseWriter
 # ImageZhuo by z0gSh1u @ https://github.com/z0gSh1u/ImageZhuo
 
-import numpy as np
-from misc import MyImage
+from misc.classes import MyImage
 
 
 # 读取器基类

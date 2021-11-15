@@ -2,7 +2,7 @@
   "header": {
     "comment": "eric project file for project ImageZhuo",
     "copyright": "Copyright (C) 2021 z0gSh1u, zx.cs@qq.com",
-    "saved": "2021-11-13, 21:00:39"
+    "saved": "2021-11-15, 14:47:06"
   },
   "project": {
     "AUTHOR": "z0gSh1u",
@@ -35,12 +35,14 @@
       "makefile": "OTHERS"
     },
     "FORMS": [
+      "ui/FigureDisplay.ui",
       "ui/ImageDisplay.ui",
       "ui/MainWindow.ui",
       "ui/OpenDialog.ui",
+      "ui/WaitDialog.ui",
       "ui/WWWLDialog.ui",
-      "ui/FigureDisplay.ui",
-      "ui/WaitDialog.ui"
+      "ui/RetinexParam.ui",
+      "ui/RetinexParamDialog.ui"
     ],
     "HASH": "a78191b18183cdfd5af189916f10d9362b0d7138",
     "IDLPARAMS": {
@@ -60,7 +62,9 @@
       "MakeTestOnly": true
     },
     "MIXEDLANGUAGE": false,
-    "OTHERS": [],
+    "OTHERS": [
+      "README.md"
+    ],
     "OTHERTOOLSPARMS": {},
     "PACKAGERSPARMS": {},
     "PROGLANGUAGE": "Python3",
@@ -74,53 +78,17 @@
       "PathPrefix": ""
     },
     "RESOURCES": [
-      "ui/OpenDialog.qrc",
-      "ui/MainWindow.qrc"
+      "ui/MainWindow.qrc",
+      "ui/OpenDialog.qrc"
     ],
     "SOURCES": [
-      "__init__.py",
-      "utils.py",
-      "function/fft.py",
-      "function/hist.py",
-      "function/rotate.py",
-      "function/window.py",
-      "function/__init__.py",
-      "reader/BaoReader.py",
-      "reader/_BaseReader.py",
-      "reader/_MetaInfo.py",
-      "reader/__init__.py",
-      "ui/ImageDisplay.py",
-      "ui/MainWindow.py",
-      "ui/OpenDialog.py",
-      "ui/OpenDialog_rc.py",
-      "ui/Ui_ImageDisplay.py",
-      "ui/Ui_MainWindow.py",
-      "ui/Ui_OpenDialog.py",
-      "ui/Ui_WWWLDialog.py",
-      "ui/WWWLDialog.py",
-      "ui/__init__.py",
-      "function/flip.py",
-      "function/metadata.py",
-      "function/otsuSegmentation.py",
-      "function/retinex.py",
-      "function/sharpen.py",
-      "function/smooth.py",
-      "function/unsharpMasking.py",
-      "function/zoom.py",
-      "ui/MainWindow_rc.py",
-      "ui/Ui_FigureDisplay.py",
-      "misc.py",
-      "ui/ImageDisplayWidget.py",
-      "writer/BaoWriter.py",
-      "writer/_BaseWriter.py",
-      "writer/_MetaInfo.py",
-      "writer/__init__.py",
       "function/fft.py",
       "function/flip.py",
       "function/hist.py",
       "function/metadata.py",
       "function/otsuSegmentation.py",
       "function/retinex.py",
+      "function/reverse.py",
       "function/rotate.py",
       "function/sharpen.py",
       "function/smooth.py",
@@ -143,15 +111,18 @@
       "ui/Ui_ImageDisplay.py",
       "ui/Ui_MainWindow.py",
       "ui/Ui_OpenDialog.py",
+      "ui/Ui_WaitDialog.py",
       "ui/Ui_WWWLDialog.py",
+      "ui/WaitDialog.py",
       "ui/WWWLDialog.py",
       "ui/__init__.py",
       "writer/BaoWriter.py",
       "writer/_BaseWriter.py",
       "writer/_MetaInfo.py",
       "writer/__init__.py",
-      "ui/Ui_WaitDialog.py",
-      "ui/WaitDialog.py"
+      "__init__.py",
+      "ui/Ui_RetinexParamDialog.py",
+      "ui/RetinexParamDialog.py"
     ],
     "SPELLEXCLUDES": "",
     "SPELLLANGUAGE": "en_US",

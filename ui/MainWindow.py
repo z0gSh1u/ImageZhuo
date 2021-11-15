@@ -22,6 +22,7 @@ from ImageDisplay import ImageDisplay
 from FigureDisplay import FigureDisplay
 
 from reader import _BaseReader
+from ui.RetinexParamDialog import RetinexParamDialog
 from ui.WaitDialog import WaitDialog
 from writer import PRESET_WRITERS
 
@@ -38,8 +39,12 @@ from function.flip import horizontalFlip
 from function.sharpen import laplacian
 from function.unsharpMasking import unsharpMaskingMeanFilter
 
-from misc import MyImage, ImageZhuoError
-from utils import disableResize, normalize255
+from misc.classes import MyImage, ImageZhuoError
+from misc.utils import disableResize, normalize255
+
+# 进行缩放后显示的图像尺寸阈值
+THRESHOLD_H = 1080 - 80
+THRESHOLD_W = 1920 - 80
 
 
 def ensureCurrentOpen():
@@ -108,15 +113,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_retinex_clicked(self):
-        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
         # 处理后仍在4096级灰度范围
-        retinexResult = Retinex(currentImage.data)
-        currentImage.data = retinexResult
-        currentImage.reGen8bit()
-        imageDisplay.loadFromMyImage(currentImage)
-        self.toggleBusy(False)
+        retinexParamDialog.show()
 
     @pyqtSlot()
     def on_btn_otsu_clicked(self):
@@ -264,6 +264,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def on_btn_laplacian_clicked(self):
+        self.toggleBusy(True)
         global currentImage
         ensureCurrentOpen()
         kOrder, ok = QInputDialog.getItem(self,
@@ -277,6 +278,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             currentImage.data = lapRes
             currentImage.reGen8bit()
             imageDisplay.loadFromMyImage(currentImage)
+        self.toggleBusy(False)
 
     @pyqtSlot()
     def on_btn_autowwwl_clicked(self):
@@ -307,6 +309,13 @@ def handle_ImageDisplay_ZoomParams(p0: QPoint, p1: QPoint):
         imageDisplay.lbl_display.p1 = QPoint(0, 0)
 
 
+# 处理图像显示窗口关闭
+def handle_ImageDisplay_Close():
+    global reader, currentImage
+    reader = None
+    currentImage = None
+
+
 # 处理打开文件
 def handle_OpenDialog_OpenDone(reader_):
     # 接管reader
@@ -315,7 +324,7 @@ def handle_OpenDialog_OpenDone(reader_):
     # 组装currentImage
     currentImage = MyImage(reader.h, reader.w, reader.data)
     # 显示图片
-    if reader.h >= 1080 or reader.w >= 1920:  # 以1080p屏幕为例判断显示不下的情况
+    if reader.h >= THRESHOLD_H or reader.w >= THRESHOLD_W:
         imageDisplay.toggleBy50Percent()
     imageDisplay.loadFromMyImage(currentImage)
     openDialog.setVisible(False)
@@ -331,6 +340,17 @@ def handle_WWWLDialog_WWWLDone(ww, wl):
     imageDisplay.loadFromMyImage(currentImage)
 
 
+# 处理Retinex参数
+def handle_RetinexParamDialog_retinexParam(gammaH, gammaL, c, D0):
+    mainWindow.toggleBusy(True)
+    retinexResult = Retinex(currentImage.data, gammaH, gammaL, c, D0)
+    currentImage.data = retinexResult
+    currentImage.reGen8bit()
+    imageDisplay.loadFromMyImage(currentImage)
+    retinexParamDialog.setVisible(False)
+    mainWindow.toggleBusy(False)
+
+
 # 处理异常，避免程序崩溃
 def customizedExceptHook(exceptionType, exceptionValue, exceptionTraceback):
     traceBackText = "".join(
@@ -344,7 +364,7 @@ def customizedExceptHook(exceptionType, exceptionValue, exceptionTraceback):
         QMessageBox.critical(mainWindow, '未知错误提示 / ImageZhuo', traceBackText,
                              QMessageBox.Yes, QMessageBox.Yes)
         print("[Unknown Error]\n", traceBackText)
-        QtWidgets.QApplication.quit()
+        # QtWidgets.QApplication.quit()
 
 
 if __name__ == "__main__":
@@ -371,9 +391,15 @@ if __name__ == "__main__":
     wwwlDialog = WWWLDialog(mainWindow)
     wwwlDialog._SignalWWWLDone.connect(handle_WWWLDialog_WWWLDone)
 
+    # Retinex参数对话框
+    retinexParamDialog = RetinexParamDialog(mainWindow)
+    retinexParamDialog._SignalRetinexParam.connect(
+        handle_RetinexParamDialog_retinexParam)
+
     # 图像显示窗口
     imageDisplay = ImageDisplay()
     imageDisplay._SignalZoomParams.connect(handle_ImageDisplay_ZoomParams)
+    imageDisplay._SignalWindowClose.connect(handle_ImageDisplay_Close)
 
     # 直方图显示窗口
     figureDisplay = FigureDisplay()

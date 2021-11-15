@@ -3,8 +3,6 @@
 
 import numpy as np
 
-from misc import ImageZhuoError
-
 
 # Convert bytes data to integer.
 def bytesToInt(bytes_, littleEndian=True):
@@ -62,5 +60,6 @@ def normalize01(arr):
 
 # 断言
 def myAssert(cond, hint):
+    from .classes import ImageZhuoError
     if not cond:
         raise ImageZhuoError(hint)

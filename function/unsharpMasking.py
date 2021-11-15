@@ -4,7 +4,7 @@
 import numpy as np
 
 from .smooth import meanFilter
-from utils import normalizeToImg
+from misc.utils import normalizeToImg
 
 
 # 使用均值滤波的高提升滤波

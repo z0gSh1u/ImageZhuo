@@ -11,11 +11,11 @@ from Ui_OpenDialog import Ui_OpenDialog
 import sys
 import os.path as path
 import importlib
-from utils import myAssert
 
 dirname__ = path.dirname(path.abspath(__file__))
 sys.path.append(path.join(dirname__, '../'))
 
+from misc.utils import myAssert
 from reader import PRESET_READERS, _BaseReader
 
 
@@ -33,7 +33,8 @@ class OpenDialog(QDialog, Ui_OpenDialog):
         # 填充预设的Reader
         for reader in PRESET_READERS:
             self.combo_reader.addItem(reader['Name'])
-            self.combo_pixelFormat.addItem(reader['DataType'])
+            self.edt_pixelFormat.setText(reader['DataType'])
+            self.edt_pixelFormat.setDisabled(True)
         self.combo_reader.setCurrentIndex(0)
 
     @pyqtSlot()
@@ -61,13 +62,11 @@ class OpenDialog(QDialog, Ui_OpenDialog):
     def on_btn_done_clicked(self):
         # 进一步检查相关参数
         myAssert(
-            len(self.edt_width.getText().strip()) > 0
-            and len(self.edt_height.getText().strip()) > 0, '请输入图像的宽高！')
+            len(self.edt_width.text().strip()) > 0
+            and len(self.edt_height.text().strip()) > 0, '请输入图像的宽高！')
         try:
-            if self.reader.w is None:
-                self.reader.w = int(self.edt_width.getText())
-            if self.reader.h is None:
-                self.reader.h = int(self.edt_height.getText())
+            self.reader.w = int(self.edt_width.text())
+            self.reader.h = int(self.edt_height.text())
         except:
             myAssert(False, '请检查宽高是否合法，要求为正整数！')
         myAssert(self.reader.w > 0 and self.reader.h > 0, '请检查宽高是否合法，要求为正整数！')
